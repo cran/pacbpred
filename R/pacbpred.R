@@ -1,12 +1,12 @@
 pacbpred <-
-  function(
+function(
     niter,
     burnin = floor(niter*2/3),
     Xtrain,
     Xtest,
     Y,
     K = 8,
-    cst = 10^6,
+    cst,
     sigma2,
     alpha = .1,
     delta
@@ -54,7 +54,8 @@ pacbpred <-
           {
             card1 <- length(S(model))
             card2 <- sum(model)
-            part1 <- - lchoose(p, card1) + card2*lcst + log(factorial(card2))
+            part1 <- -log(factorial(card2))
+                                        #- lchoose(p, card1) + card2*lcst + log(factorial(card2)) ##CHECK
             part2 <- - delta*r + post
             w <- exp(part1 + part2)
             return(w)
@@ -90,11 +91,12 @@ pacbpred <-
           {
             res1 <- Qreg[1]/Qreg[3]
           }
-        res2 <- 1/(weightsB[found]/weightsA[proposedModelIndex])
-        res3part1 <- lchoose(p, cardOreg) - lchoose(p, cardPreg) + (cardPdev - cardOdev)*lcst
-        res3part2 <- delta*(rO - rP) + log(factorial(cardPdev)) - log(factorial(cardOdev))
-        res3part3 <- postP - postO
-        res3 <- exp(res3part1 + res3part2 + res3part3)
+        ## res2 <- 1/(weightsB[found]/weightsA[proposedModelIndex]) inverse!
+        res2 <- weightsB[found]/weightsA[proposedModelIndex]
+        res3part1 <- -log(factorial(cardPdev)) + log(factorial(cardOdev))
+                                        #lchoose(p, cardOreg) - lchoose(p, cardPreg) + (cardPdev - cardOdev)*lcst + log(factorial(cardPdev)) - log(factorial(cardOdev)) ##CHECK
+        res3part2 <- delta*(rO - rP) + postP - postO
+        res3 <- exp(res3part1 + res3part2)
         if(is.nan(res1*res2*res3))
           {
             res <- 1
@@ -105,8 +107,17 @@ pacbpred <-
       }
     if(missing(sigma2))
       {
-        sigma2 <- var(Y)/100
+        sigma2 <- var(Y)
       }
+    if(missing(cst))
+      {
+        cst <- p*(max(Y)-min(Y))
+      }
+    if(missing(delta))
+      {
+        delta <- nrow(Xtrain)/(4*sigma2)
+      }
+    useless <- warn <- FALSE
     bufferSize <- 1000
     saveModels = FALSE
     n <- nrow(Xtrain)
@@ -158,15 +169,18 @@ pacbpred <-
     accept[1] <- NA
     knownModels <- c()
     modelsIndex <- c()
-    
+    risques <- numeric(niter)
+
+    cat('MCMC:',sep='')
     for(iiter in 2:niter)
       {
-        if(missing(delta))
+        risques[iiter-1] <- risk(theta.mcmc[,iiter-1],dataFullMatrix)
+        if(useless)
           {
-            delta <- (n/(4*sigma2))*iiter/(3*niter)
+            warn <- TRUE
           }
         useless <- FALSE
-        print(paste("MCMC : iteration ", iiter, " on ", niter, " (", iiter*100/niter, "%)", sep = ""))
+        cat('... ',floor(100*iiter/niter),'%',sep='')
         if(length(knownModels)>bufferSize)
           {
             knownModels <- c()
@@ -175,7 +189,7 @@ pacbpred <-
           }
         currentModel <- models.mcmc[,iiter-1]
         cardCurrent <- length(S(currentModel))
-        Qreg <- Q <- c(.4,.4,.2)
+        Qreg <- Q <- c(.3,.4,.3)
         if(cardCurrent == p || sum(currentModel) > n)
           {
             Q <- c(.9, .1, 0)
@@ -569,7 +583,13 @@ pacbpred <-
               }
           }
       }
+    cat('.\n',sep='')
     
+    risques[niter] <- risk(theta.mcmc[,niter],dataFullMatrix)
+    if(warn)
+      {
+        print("Many models visited by the Markov chain were discarded. The value of cst is probably too small.")
+      }
     predictor <- apply(X = theta.mcmc[, (burnin + 1):niter], MARGIN = 1, FUN = mean)
     predictor.dictionary <- V%*%solve(Sing)%*%predictor
     res <- list()
@@ -590,7 +610,7 @@ pacbpred <-
         estimates <- dataFullMatrixTest%*%predictor.dictionary
         res <- c(res, list(predict = estimates))
       }
-    res <- c(res, list(estimates = predictor.dictionary, ratio.mcmc = ratio.mcmc, accept = accept, models.mcmc = models.mcmc))
+    res <- c(res, list(estimates = predictor.dictionary, ratio.mcmc = ratio.mcmc, accept = accept, models.mcmc = models.mcmc, risk.mcmc = risques))
     return(res)
-        
+    
   }

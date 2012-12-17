@@ -1,20 +1,20 @@
 \name{pacbpred-package}
 \alias{pacbpred-package}
-% \alias{pacbpred}
+%% \alias{pacbpred}
 \docType{package}
 \title{
 PAC-Bayesian Estimation and Prediction in Sparse Additive Models
 }
 \description{
-This package is intended to perform estimation and prediction in high-dimensional additive models, using a PAC-Bayesian point of view and a MCMC algorithm.
+  This package is intended to perform estimation and prediction in high-dimensional additive models, using a PAC-Bayesian point of view and a MCMC algorithm.
 }
 \details{
 \tabular{ll}{
 Package: \tab pacbpred\cr
 Type: \tab Package\cr
-Version: \tab 0.9\cr
-Date: \tab 2012-08-19\cr
-License: \tab GPL\cr
+Version: \tab 0.92\cr
+Date: \tab 2012-12-17\cr
+License: \tab GPL (>= 2)\cr
 }
 }
 \author{
@@ -27,26 +27,36 @@ Guedj and Alquier (2012), 'PAC-Bayesian Estimation and Prediction in
 Sparse Additive Models' (arXiv preprint: \url{http://arxiv.org/abs/1208.1211}
 }
 \keyword{ package }
-\seealso{\code{pacbpred}
+\seealso{
+\code{pacbpred}
 }
 \examples{
-n <- 200
+ndata <- 100
+ntrain <- 80
+ntest <- ndata - ntrain
 p <- 10
-ntest <- 20
-Xtest <- matrix(nr = ntest, nc = p, data = 0)
-X <- matrix(nr = n, nc = p, data = 0)
-Y <- numeric(n)
-for(j in 1:p)
+Y <- numeric(ndata)
+X <- matrix(nr = ndata, nc = p, data = 2*runif(n = ndata*p) - 1)
+for(i in 1:ndata)
   {
-    X[, j] <- (2*runif(n = n) - 1)
-    Xtest[, j] <- (2*runif(n = ntest) - 1)
+    Y[i] <- X[i,1]^3+sin(pi*X[i,2])
   }
-for(i in 1:n)
-  {
-      Y[i] <- 2*X[i,1]-X[i,3]^3+rnorm(n=1,sd=.1)
-  }
-Y <- Y - mean(Y)
+
+Xtrain <- X[1:ntrain,]
+Xtest <- X[(ntrain+1):ndata,]
+Ytrain <- Y[1:ntrain]
+Ytest <- Y[(ntrain+1):ndata]
+
 niter <- 100
-res <- pacbpred(niter = niter, Xtrain = X, Xtest = Xtest, Y = Y)
-print(res$predict)
+cst <- Inf
+alpha <- .1
+sigma2 <- .1
+delta <- ntrain/2
+
+res <- pacbpred(niter = niter, Xtrain = Xtrain, Xtest = Xtest, Y =
+Ytrain, cst = cst,
+sigma2 = sigma2, delta = delta, alpha = alpha)
+
+print(cbind(res$predict,Ytest))
+
 }
