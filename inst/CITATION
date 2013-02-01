@@ -1,13 +1,12 @@
-citHeader("To cite package 'pacbpred' in publications use:")
+citHeader("To cite package 'pacbpred' in publications please use:")
 
-citEntry(entry="Unpublished",
+citEntry(entry="Article",
          author = personList(as.person("Benjamin Guedj"),
                              as.person("Pierre Alquier")),
          title = "PAC-Bayesian Estimation and Prediction in Sparse Additive Models",
-         year = 2012,
-	 note = "Submitted",
-	 url = "http://arxiv.org/abs/1208.1211",
-         textVersion ="B. Guedj and P. Alquier (2012). PAC-Bayesian Estimation and Prediction in Sparse Additive Models. Submitted.")
-
-
-
+         year = 2013,
+	 journal = "Electronic Journal of Statistics",
+	 volume = 7,
+	 pages = 264--291,
+	 doi = 10.1214/13-EJS771,
+	 textVersion ="B. Guedj and P. Alquier (2013). PAC-Bayesian Estimation and Prediction in Sparse Additive Models, Electronic Journal of Statistics, 7, 264--291. DOI:10.1214/13-EJS771.")

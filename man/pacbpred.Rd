@@ -6,7 +6,11 @@
   pacbpred
 }
 \description{
-  This package is intended to perform estimation and prediction in high-dimensional additive models, using a PAC-Bayesian point of view and a MCMC algorithm. The method is fully described in Guedj and Alquier (2012), 'PAC-Bayesian Estimation and Prediction in Sparse Additive Models' (see \url{http://arxiv.org/abs/1208.1211}).
+  This package is intended to perform estimation and prediction in
+  high-dimensional additive models, using a PAC-Bayesian point of view
+  and a MCMC algorithm. The method is fully described in Guedj and
+  Alquier (2013), 'PAC-Bayesian Estimation and Prediction in Sparse
+  Additive Models', see \url{http://projecteuclid.org/DPubS?service=UI&version=1.0&verb=Display&handle=euclid.ejs/1359041592}.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
@@ -61,8 +65,8 @@ sigma2, alpha = 0.1, delta)
 }
 }
 \details{
-  See Guedj and Alquier (2012), 'PAC-Bayesian Estimation and Prediction
-  in Sparse Additive Models' (arXiv preprint \url{http://arxiv.org/abs/1208.1211}
+  See Guedj and Alquier (2013), 'PAC-Bayesian Estimation and Prediction
+  in Sparse Additive Models' on \url{http://projecteuclid.org/DPubS?service=UI&version=1.0&verb=Display&handle=euclid.ejs/1359041592}.
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
@@ -84,8 +88,10 @@ sigma2, alpha = 0.1, delta)
 \references{
   \url{http://www.lsta.upmc.fr/doct/guedj/index.html}
   
-  Guedj and Alquier (2012), 'PAC-Bayesian Estimation and Prediction
-  in Sparse Additive Models' (arXiv preprint: \url{http://arxiv.org/abs/1208.1211})
+  Guedj and Alquier (2013), 'PAC-Bayesian Estimation and Prediction
+  in Sparse Additive Models'. Electronic Journal of Statistics, 7,
+  264--291. DOI:10.1214/13-EJS771.
+  Available on \url{http://projecteuclid.org/DPubS?service=UI&version=1.0&verb=Display&handle=euclid.ejs/1359041592}.
 %% ~put references to the literature/web site here ~
 }
 \author{Benjamin Guedj
@@ -134,4 +140,5 @@ print(cbind(res$predict,Ytest))
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ nonlinear }
+\keyword{ pac-bayesian }
 \keyword{ prediction }% __ONLY ONE__ keyword per line

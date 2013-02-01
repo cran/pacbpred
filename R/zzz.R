@@ -1,7 +1,7 @@
-.onLoad <- function(lib, pkg)
+.onAttach <- function(lib, pkg)
 {
-  packageStartupMessage('pacbpred v0.92')
+  packageStartupMessage('pacbpred v0.92.1')
   packageStartupMessage('Creator: Benjamin Guedj')
   packageStartupMessage('http://www.lsta.upmc.fr/doct/guedj/index.html')
-  packageStartupMessage('Please cite the method if you use it. Type citation("pacbpred")')
+  packageStartupMessage('If you consider using pacbpred in academic work, please cite it by typing citation("pacbpred").')
 }

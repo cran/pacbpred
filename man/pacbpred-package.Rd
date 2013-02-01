@@ -12,8 +12,8 @@ PAC-Bayesian Estimation and Prediction in Sparse Additive Models
 \tabular{ll}{
 Package: \tab pacbpred\cr
 Type: \tab Package\cr
-Version: \tab 0.92\cr
-Date: \tab 2012-12-17\cr
+Version: \tab 0.92.1\cr
+Date: \tab 2013-02-01\cr
 License: \tab GPL (>= 2)\cr
 }
 }
@@ -23,8 +23,12 @@ Benjamin Guedj
 Maintainer: Benjamin Guedj <benjamin.guedj@upmc.fr>
 }
 \references{
-Guedj and Alquier (2012), 'PAC-Bayesian Estimation and Prediction in
-Sparse Additive Models' (arXiv preprint: \url{http://arxiv.org/abs/1208.1211}
+  \url{http://www.lsta.upmc.fr/doct/guedj/index.html}
+  
+  Guedj and Alquier (2013), 'PAC-Bayesian Estimation and Prediction
+  in Sparse Additive Models'. Electronic Journal of Statistics, 7,
+  264--291. DOI:10.1214/13-EJS771.
+  Available on \url{http://projecteuclid.org/DPubS?service=UI&version=1.0&verb=Display&handle=euclid.ejs/1359041592}.
 }
 \keyword{ package }
 \seealso{
