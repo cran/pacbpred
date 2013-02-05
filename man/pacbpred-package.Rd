@@ -12,8 +12,8 @@ PAC-Bayesian Estimation and Prediction in Sparse Additive Models
 \tabular{ll}{
 Package: \tab pacbpred\cr
 Type: \tab Package\cr
-Version: \tab 0.92.1\cr
-Date: \tab 2013-02-01\cr
+Version: \tab 0.92.2\cr
+Date: \tab 2013-02-05\cr
 License: \tab GPL (>= 2)\cr
 }
 }

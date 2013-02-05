@@ -2,8 +2,8 @@ Package: pacbpred
 Type: Package
 Title: PAC-Bayesian Estimation and Prediction in Sparse Additive
         Models.
-Version: 0.92.1
-Date: 2013-02-01
+Version: 0.92.2
+Date: 2013-02-05
 Author: Benjamin Guedj
 Maintainer: Benjamin Guedj <benjamin.guedj@upmc.fr>
 Description: This package is intended to perform estimation and
@@ -14,6 +14,6 @@ Description: This package is intended to perform estimation and
         Electronic Journal of Statistics, 7, 264--291.
 License: GPL (>= 2)
 URL: http://www.lsta.upmc.fr/doct/guedj/index.html
-Packaged: 2013-02-01 15:16:40 UTC; benjamin
+Packaged: 2013-02-05 12:05:13 UTC; benjamin
 Repository: CRAN
-Date/Publication: 2013-02-01 17:37:51
+Date/Publication: 2013-02-05 13:41:35
